@@ -38,8 +38,8 @@ router.get("/:id", async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-	const {nombre, descripcion, codigo, foto, precio, stock} = req.body;
-	const id = await producto.put(Number(req.params.id), {nombre, descripcion, codigo, foto, precio, stock});
+	const {nombre, descripcion, codigo, foto, precio, stock, timeStamp} = req.body;
+	const id = await producto.put(Number(req.params.id), {nombre, descripcion, codigo, foto, precio, stock, timeStamp});
 	res.json(id);
 })
 

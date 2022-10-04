@@ -1,4 +1,5 @@
 import Producto from "./Producto.class.js";
+import fs from "fs";
 
 
 export default class Carrito {
@@ -8,15 +9,15 @@ export default class Carrito {
 		this.id = 1;
 	}
 
-	listar(id) {
+
+	async listar(id) {
 		let prod = this.carritos.find((carr) => carr.id == id);
 		return prod || { error: "carrito no encontrado" };
 	}
 
 	listarAll() {
-		return this.carritos.length
-			? this.carritos
-			: { error: "no hay carritos cargados" };
+		let prod = this.carritos.find((carr) => carr.id == id);
+		return prod || { error: "carrito no encontrado" };
 	}
 
 	crearCarrito() {
@@ -28,10 +29,10 @@ export default class Carrito {
 	async guardarProductoEnCarrito(idProd, idCarrito) {
 		console.log(idProd);
 		const producto = await this.producto.getById(idProd);
-		console.log(producto);
 		this.carritos.forEach((carro) => {
 			carro.id == idCarrito ? carro.productos.push(producto) : null;
 		});
+		console.log(producto);
 		return this.carritos;
 	}
 
