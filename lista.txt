@@ -1,0 +1,31 @@
+[
+  {
+    "nombre": "Pera",
+    "descripcion": "Lapiz Gel color Azul",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "id": 2,
+    "timeStamp": 1664778579726
+  },
+  {
+    "nombre": "Lapiz",
+    "descripcion": "Lapiz Gel Azul Terrible Pulento",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "id": 1
+  },
+  {
+    "nombre": "Notebook",
+    "descripcion": "Lapiz Gel color Azul",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "id": 3,
+    "timeStamp": 1664781869446
+  }
+]
