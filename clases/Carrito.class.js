@@ -9,20 +9,34 @@ export default class Carrito {
 		this.id = 1;
 	}
 
+	async crearCarrito(){
+		await fs.promises.writeFile("./carrito.txt", JSON.stringify([], null, 2), "utf-8");
+	}
 
 	async listar(id) {
 		let prod = this.carritos.find((carr) => carr.id == id);
 		return prod || { error: "carrito no encontrado" };
 	}
 
-	listarAll() {
-		let prod = this.carritos.find((carr) => carr.id == id);
-		return prod || { error: "carrito no encontrado" };
+	async listarAll() {
+		try{
+			const contenido = await fs.promises.readFile("./carrito.txt", "utf-8");
+			if(Array.isArray(contenido)){
+				console.log("Carro vacio")
+				return JSON.parse(contenido);
+
+			}else{
+			console.log("Carrito con algo")
+			return JSON.parse(contenido);
+			}
+		}catch(err){
+			this.crearCarrito()
+			console.log("Archivo de carrito creado")
+		}
 	}
 
-	crearCarrito() {
+	addCarrito() {
 		const carr = { id: this.id++, timeStamp: Date.now(), productos: [] };
-		this.carritos.push(carr);
 		return carr;
 	}
 

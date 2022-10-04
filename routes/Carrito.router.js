@@ -6,7 +6,7 @@ const router = express.Router();
 const carrito = new Carrito();
 
 router.post("/", (req, res) => {
-	const carritoCreado = carrito.crearCarrito();
+	const carritoCreado = carrito.addCarrito();
 	res.send(carritoCreado);
 });
 
