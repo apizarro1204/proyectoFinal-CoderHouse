@@ -1,6 +1,5 @@
 import Producto from "./Producto.class.js";
 import fs from "fs";
-import { formatWithOptions } from "util";
 
 
 export default class Carrito {
@@ -22,7 +21,7 @@ export default class Carrito {
 
 			// const contJson = Object.values(contenido);
 			let carrito = contenido.find((carr) => carr.id == id);
-			return carrito
+			return carrito;
 	
 			// let prod = this.carritos.find((carr) => carr.id == id);
 			// return prod || { error: "carrito no encontrado" };
@@ -135,19 +134,23 @@ export default class Carrito {
 	}
 
 	async borrarProd(idProd, idCarrito){
-		const carr = await this.listarAll();
-		console.log(carr);
-		console.log(idCarrito)
-		let carrito = carr.find((c) => c.idCarrito == idCarrito);
-			console.log(carrito)
-		const newCarr = carrito.productos.filter((prod)=> prod.idProd != idProd);
-		await this.crearCarrito(newCarr);
-		return {msj: "Producto borrado"}
+		const carrito = await this.listar(idCarrito); // Obtengo el carrito
+		console.log(Object.values(carrito));
+		const prodCarr = carrito.find((prod) => prod.idProd == idProd);
+		console.log(prodCarr);
+
+
+		// const carr = await this.listarAll();
+		// console.log(carr);
+		// console.log(idCarrito)
+		// let carrito = carr.filter((c) => c.idCarrito == idCarrito);
+		// 	console.log(carrito)
+		// const newCarr = carrito.productos.filter((prod)=> prod.idProd != idProd);
+		// await this.crearCarrito(newCarr);
+		// return {msj: "Producto borrado"}
 		
 		// let indexCarr = carr.findIndex((prod) => prod.idProd== idProd);
-		console.log(carr);
 		// carr.splice(indexProd, 1);
-		console.log(indexCarr);
 
 
 	}
