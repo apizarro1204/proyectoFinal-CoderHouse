@@ -6,4 +6,4 @@ PC trabajo
 
 *** Puero 8080 ***
 
-Faltan detalles por aclarar. Costó harto jaaja
+Falta el borrar producto de carrito
