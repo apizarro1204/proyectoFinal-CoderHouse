@@ -27,16 +27,12 @@ router.get("/", (req, res) => {
 	carrito.listarAll().then(listaCarritos => {
 		res.send(listaCarritos);
 	})
-	// const listaCarritos = carrito.listarAll();
-	// res.send(listaCarritos);
 });
 
 router.get("/:id", async (req, res) => {
 	const carroBuscado = Number(req.params.id);
 	const cont = await carrito.listar(carroBuscado);
 	res.send(cont);
-	// const listaCarrito = carrito.listar();
-	// res.send(listaCarrito);
 });
 
 router.get("/:id/productos", async (req, res) => {

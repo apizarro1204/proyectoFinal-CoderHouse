@@ -8,7 +8,7 @@ export default class Producto {
 		this.id = 0;
 	}
 
-	// Crear Archivo
+	// Crear Archivo con el producto
 	async createData(prod) {
 		try {
 			await fs.promises.writeFile("./productos.txt", JSON.stringify(prod, null, 2), "utf-8");
@@ -37,26 +37,6 @@ export default class Producto {
 		} catch (err) {
 			return {error: "No existen productos"}
 		}
-		// try {
-		// 	const contenido = await fs.promises.readFile("./lista.txt", "utf-8");
-		// 	if(contenido.length === 0){
-		// 		console.log("No hay productos cargados")
-		// 		return {error: "no hay productos cargados"}
-		// 	}else{
-		// 		return JSON.parse(contenido)
-		// 	}
-		// } catch (err) {
-		// 	await fs.promises.writeFile("./lista.txt", JSON.stringify([], null, 2), "utf-8");
-		// 	console.log("Al no encontrar el archivo, se ha creado uno")
-		// 	return {error: "no hay productos cargados"}
-
-		// }
-
-
-		// const contenido = this.itemList;
-		// return contenido
-		// 	? this.itemList
-		// 	: { error: "No existen productos cargados"};
 	}
 	// Agregar producto(a un carrito)
 	async save(prod) {
@@ -80,17 +60,10 @@ export default class Producto {
 			return prod;
 		}
 
-		// prod.id = ++this.id;
-		// prod.timeStamp = Date.now();
-		// Producto.productos.push(prod);
-		// return prod;
 	}
 
+	// Actualizar un producto
 	async put(id, prod) {
-		// const contenido = await this.getAll();
-		// prod.id = Number(id);
-		// let index = contenido.findIndex((prod) => prod.id == id);
-		// contenido.splice(index, 1, {...prod, id});
 		try {
 			const contenido = await this.getAll();
 			let index = contenido.findIndex((p) => p.id === id);
@@ -107,7 +80,8 @@ export default class Producto {
 			console.log(err)
 		}
 	}
-
+	
+	// Borrar un producto
 	async borrar(id) {
 			const contenido = await this.getAll();
 			let index = contenido.findIndex((prod) => prod.id == id);

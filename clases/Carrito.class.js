@@ -23,14 +23,13 @@ export default class Carrito {
 			let carrito = contenido.find((carr) => carr.id == id);
 			return carrito;
 	
-			// let prod = this.carritos.find((carr) => carr.id == id);
-			// return prod || { error: "carrito no encontrado" };
 	
 		}catch(error){
 			return {error: "No existen carritos"}
 		}
 	}
 
+	//Obtener un producto de un carrito
 	async listarProd(id){
 			 const carrProd = await this.listar(id);
 			 console.log(carrProd.length);
@@ -38,6 +37,7 @@ export default class Carrito {
 				
 	}
 
+	// Obtener todos los carritos
 	async listarAll() {
 		try {
 			const contenido = await fs.promises.readFile("./carrito.txt", "utf-8");
@@ -46,11 +46,9 @@ export default class Carrito {
 		} catch (err) {
 			return {error: "No existen carritos"}
 		}
-		// return this.carritos.length
-		// 	? this.carritos
-		// 	: { error: "no hay carritos cargados" };
 	}
 
+	// Agregar un carrito y crea el archivo si es que no existe
 	async addCarrito() {
 		try {
 			const contenido = await this.listarAll();
@@ -69,13 +67,9 @@ export default class Carrito {
 			await this.crearCarrito(contenido);
 			return carr;
 		}
-
-
-
-		// const carr = { id: this.id++, timeStamp: Date.now(), productos: [] };
-		// return carr;
 	}
 
+	// Agrega un producto específico en un carrito específico
 	async guardarProductoEnCarrito(idProd, idCarrito) {
 			const prod = await this.producto.getById(idProd);
 			const carr = await this.listar(idCarrito);
@@ -85,9 +79,9 @@ export default class Carrito {
 			this.actualizar(carr, idCarrito);
 
 			return {msj: "Producto agregado al carrito"};
-
 	}
 
+	// Actualiza el archivo de carrito
 	async actualizar(carr, id) {
 		const contenido = await this.listarAll();
 		let index = contenido.findIndex((p) => p.id == id);
@@ -99,12 +93,9 @@ export default class Carrito {
 		} else {
 			return {error: `Producto con id: ${carr.id} no existe`};
 		}
-
-		// carr.id = Number(id);
-		// let index = this.carritos.findIndex((carr) => carr.id == id);
-		// this.productos.splice(index, 1, carr);
 	}
 
+	// Borra un carrito en específico
 	async borrar(id) {
 		const contenido = await this.listarAll();
 		let index = contenido.findIndex((carr) => carr.id == id);
@@ -113,9 +104,9 @@ export default class Carrito {
 		this.crearCarrito(contenido);
 
 		return {msj: `{ Carrito con id: ${id} eliminado }`};
-
 	}
 
+	// Borra un producto en específico de un carrito
 	async borrarProd(idProd, idCarrito){
 
 		const carrito = await this.listar(idCarrito);
