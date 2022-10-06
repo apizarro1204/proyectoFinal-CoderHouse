@@ -1,0 +1,32 @@
+[
+  {
+    "nombre": "Pepsi",
+    "descripcion": "Terrible rica la pepsi",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "id": 2,
+    "timeStamp": 1665020614421
+  },
+  {
+    "nombre": "Lapiz",
+    "descripcion": "Tinta gel",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "timeStamp": 1665020668821,
+    "id": 1
+  },
+  {
+    "nombre": "Coca-cola",
+    "descripcion": "No tan rica como la pepsi",
+    "codigo": 57455,
+    "foto": "https://www.dimeiggs.cl/media/catalog/product/cache/2/image/600x600/9df78eab33525d08d6e5fb8d27136e95/l/1/l111511_a.jpg",
+    "precio": 10,
+    "stock": 20,
+    "id": 3,
+    "timeStamp": 1665020630967
+  }
+]
