@@ -48,8 +48,8 @@ router.get("/:id/productos", async (req, res) => {
 
 
 
-router.post("/:id/productos/:idPrd", (req, res) => {
-	const respuesta = carrito.guardarProductoEnCarrito(
+router.post("/:id/productos/:idPrd", async (req, res) => {
+	const respuesta = await carrito.guardarProductoEnCarrito(
 		req.params.idPrd,
 		req.params.id
 	);

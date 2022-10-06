@@ -5,23 +5,23 @@ const router = express.Router();
 
 const producto = new Producto();
 
-// function validarAdmin(req, res, next) {
-// 	if (req.query.admin) {
-// 		next();
-// 	} else {
-// 		res.send("usted no tiene acceso");
-// 	}
-// }
+function validarAdmin(req, res, next) {
+	if (req.query.admin) {
+		next();
+	} else {
+		res.send("usted no tiene acceso");
+	}
+}
 
-router.post("/", (req, res) => {
+router.post("/", validarAdmin, (req, res) => {
 	console.log(req.body);
 	producto.save(req.body).then(productoCreado => {
 	res.send(productoCreado)
 	})
 });
 
-router.delete("/:id", (req, res) => {
-	const productoBorrado = producto.borrar(req.params.id);
+router.delete("/:id", validarAdmin, async (req, res) => {
+	const productoBorrado = await producto.borrar(req.params.id);
 	res.send(productoBorrado);
 });
 
@@ -37,7 +37,7 @@ router.get("/:id", async (req, res) => {
 	res.send(cont);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', validarAdmin, async (req, res) => {
 	const {nombre, descripcion, codigo, foto, precio, stock, timeStamp} = req.body;
 	const id = await producto.put(Number(req.params.id), {nombre, descripcion, codigo, foto, precio, stock, timeStamp});
 	res.json(id);

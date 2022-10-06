@@ -7,8 +7,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/productos", routerProductos);
-app.use("/carritos", routerCarrito);
+app.use("/api/productos", routerProductos);
+app.use("/api/carritos", routerCarrito);
 
 const PORT = 8080;
 

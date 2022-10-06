@@ -100,8 +100,7 @@ export default class Producto {
 				this.createData(contenido);
 				return prod;
 			} else {
-				console.log(`Producto con id: ${prod.id} no existe`);
-				return null;
+				return {msj: `Producto con id: ${prod.id} no existe`};
 			}
 
 		} catch (err) {
@@ -110,16 +109,18 @@ export default class Producto {
 	}
 
 	async borrar(id) {
-		try{
 			const contenido = await this.getAll();
 			let index = contenido.findIndex((prod) => prod.id == id);
-			contenido.splice(index, 1);
-			this.createData(contenido);
+			console.log(index)
+			if(index > 0){
+				contenido.splice(index, 1);
+				this.createData(contenido);
+				return {msj: `Producto con id: ${id} eliminado`};			
 
-			return id;			
-		}catch(err){
-			return err
-		}
+			}else{
+				return {msj: `Producto con id: ${id} no encontrado`};
+			}
+
 
 	}
 }

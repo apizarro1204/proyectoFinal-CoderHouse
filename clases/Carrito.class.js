@@ -33,7 +33,8 @@ export default class Carrito {
 
 	async listarProd(id){
 			 const carrProd = await this.listar(id);
-			 return carrProd.length ? JSON.parse(carrProd.productos) : { error: "Producto no encontrado" };
+			 console.log(carrProd.length);
+			 return carrProd.productos;
 				
 	}
 
@@ -43,7 +44,7 @@ export default class Carrito {
 
 			return contenido.length ? JSON.parse(contenido) : {error: "No existen carritos"}
 		} catch (err) {
-			return {error: "No carritos"}
+			return {error: "No existen carritos"}
 		}
 		// return this.carritos.length
 		// 	? this.carritos
@@ -76,32 +77,15 @@ export default class Carrito {
 	}
 
 	async guardarProductoEnCarrito(idProd, idCarrito) {
-		// console.log(idProd);
-		// console.log(idCarrito)
-		try {
 			const prod = await this.producto.getById(idProd);
 			const carr = await this.listar(idCarrito);
-			
+			console.log(carr.productos);
 			carr.productos.push(prod);
 
 			this.actualizar(carr, idCarrito);
 
-			return (`{Producto con id: ${idProd} agregado al carrito con id: ${idCarrito}`)
+			return {msj: "Producto agregado al carrito"};
 
-			// await this.actualizar(carr, idCarrito);
-
-
-		} catch (err) {
-			console.log(err)
-			return {err: "No se agregó nada"}
-		}
-
-
-		// this.carritos.forEach((carro) => {
-		// 	carro.id == idCarrito ? carro.productos.push(producto) : null;
-		// });
-		// console.log(producto);
-		// return this.carritos;
 	}
 
 	async actualizar(carr, id) {
@@ -111,10 +95,9 @@ export default class Carrito {
 		if (index >= 0) {
 			contenido.splice(index, 1, { ...carr, id });
 			this.crearCarrito(contenido);
-			return carr;
+			return {msj: "Producto agregado"};
 		} else {
-			console.log(`Producto con id: ${carr.id} no existe`);
-			return null;
+			return {error: `Producto con id: ${carr.id} no existe`};
 		}
 
 		// carr.id = Number(id);
@@ -129,29 +112,30 @@ export default class Carrito {
 		console.log(contenido);
 		this.crearCarrito(contenido);
 
-		return (`{ Carrito con id: ${id} eliminado }`)
+		return {msj: `{ Carrito con id: ${id} eliminado }`};
 
 	}
 
 	async borrarProd(idProd, idCarrito){
-		const carrito = await this.listar(idCarrito); // Obtengo el carrito
-		console.log(Object.values(carrito));
-		const prodCarr = carrito.find((prod) => prod.idProd == idProd);
-		console.log(prodCarr);
 
+		const carrito = await this.listar(idCarrito);
+		console.log(carrito.productos);
+		if(carrito.productos.length){
+			for ( var i = 0; i < carrito.productos.length ; i++){
+				let obj = carrito.productos[i];
+				if ( obj.id == idProd){
+					let indexProducto = carrito.productos.findIndex((prod) => prod.id == idProd);
+					carrito.productos.splice(indexProducto, 1);
+				}
+			}
+			this.actualizar(carrito, idCarrito);
 
-		// const carr = await this.listarAll();
-		// console.log(carr);
-		// console.log(idCarrito)
-		// let carrito = carr.filter((c) => c.idCarrito == idCarrito);
-		// 	console.log(carrito)
-		// const newCarr = carrito.productos.filter((prod)=> prod.idProd != idProd);
-		// await this.crearCarrito(newCarr);
-		// return {msj: "Producto borrado"}
-		
-		// let indexCarr = carr.findIndex((prod) => prod.idProd== idProd);
-		// carr.splice(indexProd, 1);
+		return {msj: `Producto con id: ${idProd} eliminado del carrito con id: ${idCarrito}`}
 
+		}else{
+			return {msj: "Producto no encontrado"}
+		}
 
+	
 	}
 }
