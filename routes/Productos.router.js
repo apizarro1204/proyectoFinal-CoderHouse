@@ -32,7 +32,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-	const productoBuscado = Number(req.params.id);;
+	const productoBuscado = Number(req.params.id);
 	const cont = await producto.getById(productoBuscado);
 	res.send(cont);
 });
