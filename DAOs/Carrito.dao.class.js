@@ -1,4 +1,4 @@
-import Producto from "./Producto.class.js";
+import Producto from "./Producto.daos.class.js";
 import fs from "fs";
 
 

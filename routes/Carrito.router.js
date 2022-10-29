@@ -27,16 +27,12 @@ router.get("/", (req, res) => {
 	carrito.listarAll().then(listaCarritos => {
 		res.send(listaCarritos);
 	})
-	// const listaCarritos = carrito.listarAll();
-	// res.send(listaCarritos);
 });
 
 router.get("/:id", async (req, res) => {
 	const carroBuscado = Number(req.params.id);
 	const cont = await carrito.listar(carroBuscado);
 	res.send(cont);
-	// const listaCarrito = carrito.listar();
-	// res.send(listaCarrito);
 });
 
 router.get("/:id/productos", async (req, res) => {
@@ -48,8 +44,8 @@ router.get("/:id/productos", async (req, res) => {
 
 
 
-router.post("/:id/productos/:idPrd", (req, res) => {
-	const respuesta = carrito.guardarProductoEnCarrito(
+router.post("/:id/productos/:idPrd", async (req, res) => {
+	const respuesta = await carrito.guardarProductoEnCarrito(
 		req.params.idPrd,
 		req.params.id
 	);
