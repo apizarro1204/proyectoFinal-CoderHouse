@@ -13,7 +13,7 @@ function validarAdmin(req, res, next) {
 	}
 }
 
-router.post("/", validarAdmin, async (req, res) => {
+router.post("/", validarAdmin, (req, res) => {
 	console.log(req.body);
 	const response = await producto.createData(req.body)
 	res.send(response);
@@ -30,12 +30,14 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/:id", async (req, res) => {
-	const cont = await producto.getById(req.params.id);
+	const productoBuscado = Number(req.params.id);
+	const cont = await producto.getById(productoBuscado);
 	res.send(cont);
 });
 
 router.put('/:id', validarAdmin, async (req, res) => {
-	const id = await producto.put(req.params.id, req.body);
+	const {nombre, descripcion, codigo, foto, precio, stock, timeStamp} = req.body;
+	const id = await producto.put(Number(req.params.id), {nombre, descripcion, codigo, foto, precio, stock, timeStamp});
 	res.json(id);
 })
 
