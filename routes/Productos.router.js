@@ -1,5 +1,5 @@
 import express from "express";
-import Producto from "../clases/Producto.class.js";
+import Producto from "../DAOs/Producto.dao.class.js";
 
 const router = express.Router();
 
@@ -13,11 +13,10 @@ function validarAdmin(req, res, next) {
 	}
 }
 
-router.post("/", validarAdmin, (req, res) => {
+router.post("/", validarAdmin, async (req, res) => {
 	console.log(req.body);
-	producto.save(req.body).then(productoCreado => {
-	res.send(productoCreado)
-	})
+	const response = await producto.createData(req.body)
+	res.send(response);
 });
 
 router.delete("/:id", validarAdmin, async (req, res) => {
@@ -25,21 +24,18 @@ router.delete("/:id", validarAdmin, async (req, res) => {
 	res.send(productoBorrado);
 });
 
-router.get("/", (req, res) => {
-	producto.getAll().then(listaProductos => {
-	res.send(listaProductos);
-	})
+router.get("/", async (req, res) => {
+	const response = await producto.getAll();
+	res.send(response)
 });
 
 router.get("/:id", async (req, res) => {
-	const productoBuscado = Number(req.params.id);
-	const cont = await producto.getById(productoBuscado);
+	const cont = await producto.getById(req.params.id);
 	res.send(cont);
 });
 
 router.put('/:id', validarAdmin, async (req, res) => {
-	const {nombre, descripcion, codigo, foto, precio, stock, timeStamp} = req.body;
-	const id = await producto.put(Number(req.params.id), {nombre, descripcion, codigo, foto, precio, stock, timeStamp});
+	const id = await producto.put(req.params.id, req.body);
 	res.json(id);
 })
 

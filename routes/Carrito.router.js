@@ -1,12 +1,12 @@
 import express from "express";
-import Carrito from "../clases/Carrito.class.js";
+import Carrito from "../DAOs/Carrito.dao.class.js";
 
 const router = express.Router();
 
 const carrito = new Carrito();
 
 router.post("/", async (req, res) => {
-	const carritoCreado = await carrito.addCarrito();
+	const carritoCreado = await carrito.crearCarrito();
 	res.send(carritoCreado);
 });
 
@@ -23,10 +23,12 @@ router.delete("/:id/productos/:idPrd", async (req, res) => {
 		res.send(productoBorrado);
 })
 
-router.get("/", (req, res) => {
-	carrito.listarAll().then(listaCarritos => {
-		res.send(listaCarritos);
-	})
+router.get("/", async (req, res) => {
+	const response = await carrito.listarAll();
+	res.send(response);
+	// carrito.listarAll().then(listaCarritos => {
+	// 	res.send(listaCarritos);
+	// })
 });
 
 router.get("/:id", async (req, res) => {
