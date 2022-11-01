@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/productos", routerProductos);
 app.use("/api/carritos", routerCarrito);
 
-const PORT = 8080;
+const PORT = 8081;
 
 const server = app.listen(PORT, () => {
 	console.log(`Servidor http escuchando en el puerto ${server.address().port}`);

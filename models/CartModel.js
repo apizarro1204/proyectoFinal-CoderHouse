@@ -1,9 +1,10 @@
-import mongoose from "mongoose";
+import { mongoose, Types, model } from "mongoose";
 
-const carritoSchema = new mongoose.Schema({
+const CarritoSchema = new mongoose.Schema({
     productos: []
 })
 
-const CarritoModel = mongoose.model('carrito', carritoSchema);
+
+const CarritoModel = model('carrito', CarritoSchema);
 
 export default CarritoModel;

@@ -1,24 +1,23 @@
-import Producto from "./Producto.dao.class.js";
-// import fs from "fs";
+import Product from "./Product.dao.class.js";
 import mongoose from 'mongoose'
-import CarritoModel from '../models/CartModel.js'
+import CartModel from '../models/CartModel.js'
 
 
 export default class Carrito {
 	constructor() {
-		this.url = "mongodb+srv://Apizarro:darbeta12@cluster0.ho8uwm4.mongodb.net/?retryWrites=true&w=majority";
+		//this.url = "mongodb+srv://Apizarro:darbeta12@cluster0.ho8uwm4.mongodb.net/?retryWrites=true&w=majority";
+		this.url = "mongodb://localhost:27017/"
 		this.mongodb = mongoose.connect
-		this.producto = new Producto();
-		//this.carritos = [];
+		this.producto = new Product();
 	}
 
 	async crearCarrito(carr) {
-		try{
+		try {
 			await this.mongodb(this.url);
-			const newCart =  new CarritoModel(carr);
+			const newCart = new CartModel(carr);
 			return await newCart.save();
 
-		}catch(err){
+		} catch (err) {
 			console.log(err);
 			return { error: "No se pudo crear el carrito" }
 		}
@@ -26,124 +25,62 @@ export default class Carrito {
 
 	// Obtener carrito por ID
 	async listar(id) {
-		try{
+		try {
 			await this.mongodb(this.ulr);
-			return await CarritoModel.findById(id)
-			// const contenido = await this.listarAll();
-
-			// // const contJson = Object.values(contenido);
-			// let carrito = contenido.find((carr) => carr.id == id);
-			// return carrito;
-	
-	
-		}catch(error){
-			return {error: "No existen carritos"}
+			return await CartModel.findById(id)
+		} catch (error) {
+			return { error: "No existen carritos" }
 		}
 	}
 
 	//Obtener un producto de un carrito
-	async listarProd(id){
-			 const carrProd = await this.listar(id);
-			 console.log(carrProd.length);
-			 return carrProd.productos;
-				
+	async listarProd(id) {
+		const carrProd = await this.listar(id);
+		console.log(carrProd.length);
+		return carrProd.productos;
+
 	}
 
 	// Obtener todos los carritos
 	async listarAll() {
 		try {
 			await this.mongodb(this.url);
-			// const contenido = await CarritoModel.find()
-			// console.log(contenido);
-			return await CarritoModel.find();
-			// return contenido.length ? JSON.parse(contenido) : {error: "No existen carritos"}
+			return await CartModel.find();
 		} catch (err) {
-			return {error: "No existen carritos"}
+			return { error: "No existen carritos" }
 		}
 	}
 
-	// Agregar un carrito y crea el archivo si es que no existe
-	async addCarrito() {
-		try {
-			const contenido = await this.listarAll();
-			const indice = contenido.sort((a, b) => b.id - a.id)[0].id;
-			const carr = { id: indice + 1, timeStamp: Date.now(), productos: [] };
-			contenido.push(carr);
-			this.crearCarrito(contenido);
-			console.log("--- Carrito agregado ---");
-			return carr;	
-
-		} catch (err) {
-			await this.crearCarrito([]);
-			const contenido = await this.listarAll();
-			const carr = { id: this.id++, timeStamp: Date.now(), productos: [] };
-			contenido.push(carr)
-			await this.crearCarrito(contenido);
-			return carr;
-		}
-	}
 
 	// Agrega un producto específico en un carrito específico
 	async guardarProductoEnCarrito(idProd, idCarrito) {
 		await this.mongodb(this.url);
 		const prod = await this.producto.getById(idProd);
-		const carr = new CarritoModel(idCarrito)
-		return await carr.findByIdAndUpdate(carr,{$push: prod});
-			// const carr = await this.listar(idCarrito);
-			// console.log(carr.productos);
-			// carr.productos.push(prod);
+		return await CartModel.findByIdAndUpdate({ _id: idCarrito }, { $push: { productos: prod } });
 
-			// this.actualizar(carr, idCarrito);
-
-			//return {msj: "Producto agregado al carrito"};
 	}
 
-	// Actualiza el archivo de carrito
-	async actualizar(carr, id) {
-		const contenido = await this.listarAll();
-		let index = contenido.findIndex((p) => p.id == id);
-		carr.timeStamp = Date.now();
-		if (index >= 0) {
-			contenido.splice(index, 1, { ...carr, id });
-			this.crearCarrito(contenido);
-			return {msj: "Producto agregado"};
-		} else {
-			return {error: `Producto con id: ${carr.id} no existe`};
-		}
-	}
+
 
 	// Borra un carrito en específico
 	async borrar(id) {
-		const contenido = await this.listarAll();
-		let index = contenido.findIndex((carr) => carr.id == id);
-		contenido.splice(index, 1);
-		console.log(contenido);
-		this.crearCarrito(contenido);
-
-		return {msj: `{ Carrito con id: ${id} eliminado }`};
+		try {
+			await this.mongodb(this.url);
+			return await CartModel.findByIdAndDelete(id);
+		} catch (err) {
+			return { error: "No se pudo eliminar el carrito" }
+		}
 	}
 
 	// Borra un producto en específico de un carrito
-	async borrarProd(idProd, idCarrito){
-
-		const carrito = await this.listar(idCarrito);
-		console.log(carrito.productos);
-		if(carrito.productos.length){
-			for ( var i = 0; i < carrito.productos.length ; i++){
-				let obj = carrito.productos[i];
-				if ( obj.id == idProd){
-					let indexProducto = carrito.productos.findIndex((prod) => prod.id == idProd);
-					carrito.productos.splice(indexProducto, 1);
-				}
-			}
-			this.actualizar(carrito, idCarrito);
-
-		return {msj: `Producto con id: ${idProd} eliminado del carrito con id: ${idCarrito}`}
-
-		}else{
-			return {msj: "Producto no encontrado"}
+	async borrarProd(idProd, idCarrito) {
+		try {
+			await this.mongodb(this.url);
+			const prod = await this.producto.getById(idProd);
+			return await CartModel.findByIdAndUpdate(idCarrito, { $pull: { productos: prod } });
+		} catch (err) {
+			return { error: "No se pudo eliminar el producto" }
 		}
 
-	
 	}
 }

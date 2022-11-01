@@ -19,16 +19,13 @@ router.delete("/:id/productos/:idPrd", async (req, res) => {
 	const productoBorrado = await carrito.borrarProd(
 		req.params.idPrd,
 		req.params.id
-		);
-		res.send(productoBorrado);
+	);
+	res.send(productoBorrado);
 })
 
 router.get("/", async (req, res) => {
 	const response = await carrito.listarAll();
 	res.send(response);
-	// carrito.listarAll().then(listaCarritos => {
-	// 	res.send(listaCarritos);
-	// })
 });
 
 router.get("/:id", async (req, res) => {

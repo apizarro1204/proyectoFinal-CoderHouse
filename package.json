@@ -2,10 +2,11 @@
   "type": "module",
   "name": "afterclass-ts",
   "version": "1.0.0",
-  "description": "",
+  "description": "Entregas del proyecto final Coder House",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,13 @@
     "express": "^4.18.2",
     "mongoose": "^6.7.0",
     "nodemon": "^2.0.20"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/apizarro1204/proyectoFinal-CoderHouse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/apizarro1204/proyectoFinal-CoderHouse/issues"
+  },
+  "homepage": "https://github.com/apizarro1204/proyectoFinal-CoderHouse#readme"
 }
