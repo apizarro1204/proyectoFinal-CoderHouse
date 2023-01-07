@@ -3,10 +3,9 @@ import mongoose from 'mongoose'
 import CartModel from '../models/CartModel.js'
 
 
-export default class Carrito {
+export default class Cart {
 	constructor() {
-		//this.url = "mongodb+srv://Apizarro:darbeta12@cluster0.ho8uwm4.mongodb.net/?retryWrites=true&w=majority";
-		this.url = "mongodb://localhost:27017/"
+		this.url = process.env.DB_MONGO;
 		this.mongodb = mongoose.connect
 		this.producto = new Product();
 	}

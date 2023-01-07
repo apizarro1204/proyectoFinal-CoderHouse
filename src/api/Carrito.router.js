@@ -1,9 +1,9 @@
 import express from "express";
-import Carrito from "../../DAOs/Carrito.dao.class.js";
+import Cart from "../../DAOs/Cart.dao.class.js";
 
 const router = express.Router();
 
-const carrito = new Carrito();
+const carrito = new Cart();
 
 router.post("/", async (req, res) => {
 	const carritoCreado = await carrito.crearCarrito();

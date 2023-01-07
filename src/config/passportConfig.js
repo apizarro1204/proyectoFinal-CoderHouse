@@ -1,0 +1,80 @@
+import mongoose from 'mongoose'
+import bCrypt from 'bCrypt'
+import passport from 'passport'
+import dotenv from 'dotenv'
+
+import UserModel from '../models/userSchema.js'
+import { Strategy as LocalStrategy } from 'passport-local'
+
+dotenv.config()
+
+passport.use('register', new LocalStrategy(
+    { passReqToCallback: true },
+    async (req, username, password, done) => {
+        console.log('User registred has ', username + ' ' + password);
+        mongoose.connect(process.env.DB_MONGO);
+        try {
+            UserModel.create(
+                {
+                    username,
+                    password: createHash(password),
+                    address: req.body.address
+                },
+                (err, userWithId) => {
+                    if (err) {
+                        console.log(`User already exist: ${err}`)
+                        return done(err, null);
+                    }
+                    return done(null, userWithId);
+                }
+            );
+        } catch (error) {
+            console.log({ error: 'Usuario ya existe' })
+            return done(error, null);
+        }
+
+    }
+))
+
+passport.use("login",
+    new LocalStrategy({passReqToCallback: true, usernameField: 'username', passwordField: 'password'},(req, username, password, done) => {
+        mongoose.connect(process.env.DB_MONGO);
+        try{
+            UserModel.findOne({username},(err, user)=>{
+                if(err){
+                    return done(err, null)
+                }
+                if(!user){
+                    return done(null, false)
+                }
+                if(!isValidPassword(user, password)){
+                    return done(null, false)
+                }
+                return done(null, user)
+            });
+        }catch(error){
+            console.log({error: 'No se pudo validar usuario'})
+            return done(error, null);
+        }
+}));
+
+
+
+passport.serializeUser((usuario, done) => {
+	console.log(usuario);
+	done(null, usuario.username);
+});
+
+passport.deserializeUser((id, done) => {
+	UserModel.findById(id, done);
+});
+
+function createHash(password){
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10),null)
+}
+
+function isValidPassword(user, password) {
+    return bCrypt.compareSync(password, user.password)
+}
+
+export default passport;
