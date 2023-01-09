@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 
 import UserModel from '../models/userSchema.js'
 import { Strategy as LocalStrategy } from 'passport-local'
+import { sendEmail } from '../config/mail.config.js'
 
 dotenv.config()
 
@@ -18,7 +19,12 @@ passport.use('register', new LocalStrategy(
                 {
                     username,
                     password: createHash(password),
-                    address: req.body.address
+                    name: req.body.name,
+                    email: req.body.email,
+                    address: req.body.address,
+                    age: req.body.age,
+                    avatar: req.body.avatar,
+
                 },
                 (err, userWithId) => {
                     if (err) {
@@ -28,6 +34,10 @@ passport.use('register', new LocalStrategy(
                     return done(null, userWithId);
                 }
             );
+
+            // Enviar correo
+            await sendEmail(req.body.email, req.body.name);
+
         } catch (error) {
             console.log({ error: 'Usuario ya existe' })
             return done(error, null);
@@ -37,40 +47,40 @@ passport.use('register', new LocalStrategy(
 ))
 
 passport.use("login",
-    new LocalStrategy({passReqToCallback: true, usernameField: 'username', passwordField: 'password'},(req, username, password, done) => {
+    new LocalStrategy({ passReqToCallback: true, usernameField: 'username', passwordField: 'password' }, (req, username, password, done) => {
         mongoose.connect(process.env.DB_MONGO);
-        try{
-            UserModel.findOne({username},(err, user)=>{
-                if(err){
+        try {
+            UserModel.findOne({ username }, (err, user) => {
+                if (err) {
                     return done(err, null)
                 }
-                if(!user){
+                if (!user) {
                     return done(null, false)
                 }
-                if(!isValidPassword(user, password)){
+                if (!isValidPassword(user, password)) {
                     return done(null, false)
                 }
                 return done(null, user)
             });
-        }catch(error){
-            console.log({error: 'No se pudo validar usuario'})
+        } catch (error) {
+            console.log({ error: 'No se pudo validar usuario' })
             return done(error, null);
         }
-}));
+    }));
 
 
 
 passport.serializeUser((usuario, done) => {
-	console.log(usuario);
-	done(null, usuario.username);
+    console.log(usuario);
+    done(null, usuario.username);
 });
 
 passport.deserializeUser((id, done) => {
-	UserModel.findById(id, done);
+    UserModel.findById(id, done);
 });
 
-function createHash(password){
-    return bCrypt.hashSync(password, bCrypt.genSaltSync(10),null)
+function createHash(password) {
+    return bCrypt.hashSync(password, bCrypt.genSaltSync(10), null)
 }
 
 function isValidPassword(user, password) {

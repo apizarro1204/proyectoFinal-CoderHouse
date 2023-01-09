@@ -6,7 +6,8 @@ import { fork } from "child_process";
 import config from './connection.js'
 import {webAuth} from '../auth/index.js'
 import Container from '../../DAOs/Product.dao.class.js'// Verificar si sirve o no
-import passport from '../config/passportConfig.js'
+import passport from '../config/passport.config.js'
+import upload from '../controllers/multer.controller.js'
 
 
 
@@ -33,13 +34,16 @@ router.get("/", (req, res) => {
     res.redirect("/login");
 });
 
-router.get("/home", (req, res) => {
+router.get("/home", async (req, res) => {
     const username = req.session?.passport.user;
+    const prods = await products.getAll()
     console.log(req.session);
-    res.render(path.join(process.cwd(), "/views/home.ejs"), { username });
+    console.log(prods);
+
+    res.render(path.join(process.cwd(), "/views/home.ejs"), { username, productos: prods, hayProducts: prods.length });
 });
 
-router.get('/register', (req, res) => {
+router.get('/register',(req, res) => {
     res.sendFile(path.join(process.cwd(), '/views/partials/register.html'))
 })
 
@@ -99,5 +103,12 @@ router.post(
         res.render("home", { username: req.body.username });
     }
 );
+
+router.post("/", (req, res) => {
+	const producto = req.body;
+	products.save(producto);
+    res.json(producto);
+});
+
 
 export default router;

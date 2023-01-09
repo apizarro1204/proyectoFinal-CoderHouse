@@ -11,14 +11,9 @@
 
 <body>
     <div class="container mt-3">
-        <h1 class="alert alert-success">
-            Welcome <span id="usernameHome"></span>
-                <button class="btn btn-warning float-right mt-2" onclick="location.href='/logout'">
-                    Logout
-                </button>
-        </h1>
+     
     </div>
-    <script>
+    <!-- <script>
         async function getUserName() {
             let res = await fetch("/username")
             let username = await res.json()
@@ -27,7 +22,7 @@
         let html = document.getElementById("usernameHome")
         getUserName().then(username => html.innerHTML += username)
         
-    </script>
+    </script> -->
 </body>
 
 </html>

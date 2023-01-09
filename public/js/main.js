@@ -1,4 +1,4 @@
-const socket = io.connect();
+const socket = io();
 
 // Conectamos el cliente y escuchamos el evento messages
 socket.on("messages", (data) => {
@@ -59,6 +59,7 @@ function renderItem(data) {
                         <td>${elemento.id}</td>
                         <td>${elemento.title}</td>
                         <td>${elemento.price}</td>
+                        <td>${elemento.stock}</td>
                         <td><img width=50 src='${elemento.thumbnail}' alt="imgProducto"></td>
                         </tr>`
         return modelo

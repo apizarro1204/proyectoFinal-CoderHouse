@@ -1,5 +1,9 @@
 import mongoose from 'mongoose'
 import ProductModel from '../models/ProductModel.js';
+import dotenv from 'dotenv'
+import productModel from '../models/ProductModel.js';
+dotenv.config()
+
 
 export default class Product {
 	constructor() {
@@ -15,6 +19,7 @@ export default class Product {
 				new ProductModel({
                 title: prod.title,
                 price: prod.price,
+				stock: prod.stock,
                 thumbnail: prod.thumbnail
             })
 			);
@@ -29,7 +34,7 @@ export default class Product {
 		try {
 			//findById es un metodo de mongoose
 			await this.mongodb(this.url);
-			return await findById(id);
+			return await productModel.findById(id);
 
 		} catch (error) {
 			return { error: "Producto no existe" }
@@ -40,9 +45,10 @@ export default class Product {
 	async getAll() {
 		try {
 			await this.mongodb(this.url);
-			return await find();
+			return await productModel.find();
 
 		} catch (err) {
+			console.log(err)
 			return { error: "No existen productos" }
 		}
 	}

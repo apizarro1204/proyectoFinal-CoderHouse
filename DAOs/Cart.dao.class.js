@@ -1,6 +1,8 @@
 import Product from "./Product.dao.class.js";
 import mongoose from 'mongoose'
 import CartModel from '../models/CartModel.js'
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 export default class Cart {
