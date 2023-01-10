@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import bCrypt from 'bCrypt'
+import bCrypt from 'bcrypt'
 import passport from 'passport'
 import dotenv from 'dotenv'
 

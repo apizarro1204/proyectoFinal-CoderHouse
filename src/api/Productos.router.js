@@ -1,5 +1,5 @@
 import express from "express";
-import Product from "../../DAOs/product.dao.class.js";
+import Product from "../../DAOs/Product.dao.class.js";
 
 const router = express.Router();
 

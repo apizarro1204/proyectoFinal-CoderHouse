@@ -42,7 +42,17 @@ io.on('connection', async (socket) => {
 })
 
 
-const PORT = 8081;//agregar process.env.port
+const PORT = parseInt(process.argv[2]) || 8080
+
+const args = yargs(process.argv.slice(2)).alias({
+	m: "modo",
+	p: "puerto",
+	d: "debug",
+}).default({
+	modo: "prod",
+	puerto: 8080,
+	debug: false
+}).argv;
 
 const server = httpServer.listen(PORT, () => {
 	console.log(`Servidor http escuchando en el puerto ${server.address().port}`);
