@@ -1,4 +1,4 @@
-import Container from '../../DAOs/Product.dao.class.js'
+import Container from '../DAOs/Product.dao.class.js'
 import config from '../routes/connection.js'
 
 let prod = new Container('products', config.mysql);

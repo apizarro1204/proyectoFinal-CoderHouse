@@ -4,8 +4,8 @@ import path from 'path'
 import MongoStore from "connect-mongo";
 import { fork } from "child_process";
 import config from './connection.js'
-import {webAuth} from '../auth/index.js'
-import Container from '../../DAOs/Product.dao.class.js'// Verificar si sirve o no
+import {webAuth} from '../config/auth/index.js'
+import Container from '../DAOs/Product.dao.class.js'// Verificar si sirve o no
 import passport from '../config/passport.config.js'
 import upload from '../controllers/multer.controller.js'
 
@@ -38,7 +38,6 @@ router.get("/home", async (req, res) => {
     const username = req.session?.passport.user;
     const prods = await products.getAll()
     console.log(req.session);
-    console.log(prods);
 
     res.render(path.join(process.cwd(), "/views/home.ejs"), { username, productos: prods, hayProducts: prods.length });
 });

@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 
 import UserModel from '../models/userSchema.js'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { sendEmail } from '../config/mail.config.js'
+import { sendEmail } from './mail.config.js'
 
 dotenv.config()
 
