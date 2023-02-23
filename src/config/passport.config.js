@@ -2,10 +2,12 @@ import mongoose from 'mongoose'
 import bCrypt from 'bcrypt'
 import passport from 'passport'
 import dotenv from 'dotenv'
+import {Strategy as JWTStragety } from 'passport-jwt'
+import { ExtractJwt } from 'passport-jwt'
 
 import UserModel from '../models/userSchema.js'
 import { Strategy as LocalStrategy } from 'passport-local'
-import { sendEmail } from './mail.config.js'
+import { sendEmail } from '../config/mail.config.js'
 
 dotenv.config()
 
@@ -67,6 +69,23 @@ passport.use("login",
             return done(error, null);
         }
     }));
+
+passport.use(
+    'jwt',
+    new JWTStragety(
+        {
+            secretOrKey: process.env.JWT_PK,
+            jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        },
+        async (token, done) => {
+            try {
+                return done(null, token);
+            } catch (error) {
+                done(error);
+            }
+        }
+    )
+);
 
 
 

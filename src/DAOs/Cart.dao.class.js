@@ -27,7 +27,7 @@ export default class Cart {
 	// Obtener carrito por ID
 	async listar(id) {
 		try {
-			await this.mongodb(this.ulr);
+			await this.mongodb(this.url);
 			return await CartModel.findById(id)
 		} catch (error) {
 			return { error: "No existen carritos" }
@@ -56,7 +56,9 @@ export default class Cart {
 	// Agrega un producto específico en un carrito específico
 	async guardarProductoEnCarrito(idProd, idCarrito) {
 		await this.mongodb(this.url);
+		const cart = await this.listar(idCarrito);
 		const prod = await this.producto.getById(idProd);
+		if (cart)
 		return await CartModel.findByIdAndUpdate({ _id: idCarrito }, { $push: { productos: prod } });
 
 	}

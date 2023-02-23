@@ -2,7 +2,6 @@ import express from "express";
 import routerCarrito from "./src/api/Carrito.router.js";
 import routerProductos from "./src/api/Productos.router.js";
 import routerSession from "./src/routes/routes.js"
-import Container from './src/DAOs/Product.dao.class.js'
 import config from './src/routes/connection.js'
 //import { Server as Httpserver } from 'http'
 import { Server as IOServer } from 'socket.io'
@@ -11,13 +10,11 @@ import yargs from 'yargs';
 
 
 
+
 const app = express();
 //const httpServer = new Httpserver(app)
 const httpServer = http.createServer(app)
 const io = new IOServer(httpServer)
-
-let prod = new Container('products', config.mysql);
-
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

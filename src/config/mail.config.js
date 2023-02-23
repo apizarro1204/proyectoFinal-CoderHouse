@@ -19,7 +19,7 @@ export async function sendEmail(email, name){
         await transporter.sendMail({
             from: `Registros CoderHouse <${mail.user}>`,
             to: email,
-            subject: 'Mail de prueba node.js',
+            subject: 'Te damos la Bienvenida!',
             text: 'Te doy la bienvenida',
             html: `<head>
             <link rel="stylesheet" href="./style.css">

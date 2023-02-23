@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import ProductModel from '../models/ProductModel.js';
+import ProductModel from '../models/productsModel.js';
 import dotenv from 'dotenv'
 dotenv.config()
 
@@ -33,7 +33,7 @@ export default class Product {
 		try {
 			//findById es un metodo de mongoose
 			await this.mongodb(this.url);
-			return await productModel.findById(id);
+			return await ProductModel.findById(id);
 
 		} catch (error) {
 			return { error: "Producto no existe" }
@@ -44,7 +44,7 @@ export default class Product {
 	async getAll() {
 		try {
 			await this.mongodb(this.url);
-			return await productModel.find();
+			return await ProductModel.find();
 
 		} catch (err) {
 			console.log(err)
@@ -66,9 +66,9 @@ export default class Product {
 	// Actualizar un producto
 	async put(id, prod) {
 		try {
-			// await this.mongodb(this.url);
-			// return await findByIdAndUpdate(id, prod);
-			return await this.mongodb(this.url).insert(id, prod)
+			await this.mongodb(this.url);
+			return await ProductModel.findByIdAndUpdate(id, prod);
+			//return await this.mongodb(this.url).insert(id, prod)
 
 		} catch (err) {
 			console.log(err)
@@ -79,12 +79,10 @@ export default class Product {
 	async delete(id) {
 		try {
 			await this.mongodb(this.url);
-			return await findByIdAndDelete(id);
+			return await ProductModel.findByIdAndDelete(id);
 
 		} catch (err) {
 			return { error: "No existen productos" }
 		}
-
-
 	}
 }

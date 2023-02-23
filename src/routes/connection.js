@@ -11,7 +11,7 @@ export default {
     },
     mongoRemote: {
         cliente: 'mongodb',
-        cxnStr: process.env.DB_MONGO
+        cxnStr: process.env.DB_MONGO,
     },
     mysql: {
         client: "mysql",
