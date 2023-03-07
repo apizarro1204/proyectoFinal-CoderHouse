@@ -38,3 +38,9 @@ a{
 .boton{
     opacity:0;
 }
+.hidden {
+    display: none;
+}
+.show {
+    display: block;
+}

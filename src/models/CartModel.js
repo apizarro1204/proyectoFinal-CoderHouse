@@ -1,7 +1,12 @@
-import { mongoose, model } from "mongoose";
+import { mongoose, model, Schema } from "mongoose";
 
 const CarritoSchema = new mongoose.Schema({
-    productos: []
+    productos: [{
+        producto: { type: Schema.Types.ObjectId, ref: 'producto'},
+        cantidad: Number
+    }],
+    user: { type: Schema.Types.ObjectId, ref: 'users'},
+    timeStamp: {type: Date, default: Date.now}
 })
 
 

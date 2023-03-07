@@ -1,18 +1,29 @@
 import express from "express";
 import * as productControl from "../controllers/products.controller.js";
-import { validAdmin } from '../auth/index.js'
+import passport from "passport";
 
 const router = express.Router();
 
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  productControl.createProduct
+);
 
-router.post("/", validAdmin, productControl.createProduct)
+router.delete(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  productControl.deteleProductById
+);
 
-router.delete("/:id", validAdmin, productControl.deteleProductById)
+router.get("/", productControl.getAllProducts);
 
-router.get("/", productControl.getAllProducts)
+router.get("/:id", productControl.getProductById);
 
-router.get("/:id", productControl.getProductById)
-
-router.put('/:id', validAdmin, productControl.updateProductById)
+router.put(
+  "/:id",
+  passport.authenticate("jwt", { session: false }),
+  productControl.updateProductById
+);
 
 export default router;

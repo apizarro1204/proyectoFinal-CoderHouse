@@ -38,4 +38,10 @@ a{
 .boton{
     opacity:0;
 }
+.hidde {
+    display: none;
+}
+.show {
+    display: block;
+}
 

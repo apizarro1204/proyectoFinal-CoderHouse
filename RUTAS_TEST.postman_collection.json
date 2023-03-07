@@ -1,0 +1,337 @@
+{
+	"info": {
+		"_postman_id": "e6fa2b6a-f404-43e9-8c57-8956d54687ab",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23329044"
+	},
+	"item": [
+		{
+			"name": "Get Carrito",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carritos/6363116bcfb1e39777187bd9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carritos",
+						"6363116bcfb1e39777187bd9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Carrito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carritos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carritos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Producto to Carrito",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carritos/6363116bcfb1e39777187bd9/productos/636311d8cfb1e39777187be3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carritos",
+						"6363116bcfb1e39777187bd9",
+						"productos",
+						"636311d8cfb1e39777187be3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"title\": \"Crash Bandicoot\",\r\n        \"price\": 1200,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://media.vandal.net/m/1420/crash-bandicoot-201610518540_1.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Mortal Kombat X\",\r\n        \"price\": 1500,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://static.wikia.nocookie.net/doblaje/images/d/d0/Mortal_Kombat_X_Cover_Art.png/revision/latest?cb=20200603225348&path-prefix=es\"\r\n    },\r\n    {\r\n        \"title\": \"Pac Man\",\r\n        \"price\": 1570,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://uvejuegos.com/img/caratulas/30154/PAC-MAN_Red_covershot%20copy%20copia.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Dragon Ball Xenoverse\",\r\n        \"price\": 1000,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://media.vandal.net/m/24456/dragon-ball-xenoverse-201522695815_1.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Naruto Ninja Storm 4\",\r\n        \"price\": 1200,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://i.3djuegos.com/juegos/11565/naruto_shippuden_ultimate_ninja_storm_4/fotos/ficha/naruto_shippuden_ultimate_ninja_storm_4-3293755.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Shingeki Final Battle\",\r\n        \"price\": 1200,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://media.vandal.net/m/71386/attack-on-titan-2-final-battle-20197101347575_1.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"League of Legends\",\r\n        \"price\": 1400,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://esports.eldesmarque.com/wp-content/uploads/2019/09/LoL2.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Call Of Duty Warzone\",\r\n        \"price\": 1200,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://media.vandal.net/m/82925/call-of-duty-warzone-20203102215835_1.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Fifa 2019\",\r\n        \"price\": 1400,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blte2f33766e41c9530/615f631cdfb62209b2f4d732/7c092671c62c2176c7880abc44e4b48f74e3728b.jpg\"\r\n    },\r\n    {\r\n        \"title\": \"Fornite\",\r\n        \"price\": 1200,\r\n        \"stock\": 1,\r\n        \"thumbnail\": \"https://uvejuegos.com/img/caratulas/59289/Fortnite-PS4-EU.jpg\"\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos?admin=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos"
+					],
+					"query": [
+						{
+							"key": "admin",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Producto",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Crash mas bonito\",\r\n    \"price\": 1200,\r\n    \"stock\": 1,\r\n    \"thumbnail\": \"https://media.vandal.net/m/1420/crash-bandicoot-201610518540_1.jpg\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/productos/63f26540926e26efb1d2b992?admin=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						"63f26540926e26efb1d2b992"
+					],
+					"query": [
+						{
+							"key": "admin",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrarProducto de carrito",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carritos/6363116bcfb1e39777187bd9/productos/636311d8cfb1e39777187be3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carritos",
+						"6363116bcfb1e39777187bd9",
+						"productos",
+						"636311d8cfb1e39777187be3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrarProducto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/productos/?admin=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"productos",
+						""
+					],
+					"query": [
+						{
+							"key": "admin",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrarCarrito",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/carritos/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"carritos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nest",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    author: {\r\n        email: 'apizarro1204@gmail.com'\r\n    },\r\n    text: 'Que sucede?'\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"chat"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/6407c8620d40b09fcf109377/cart/6363116bcfb1e39777187bd9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"6407c8620d40b09fcf109377",
+						"cart",
+						"6363116bcfb1e39777187bd9"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

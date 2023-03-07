@@ -1,5 +1,6 @@
 import express from "express"
 import * as UserControl from '../controllers/user.controller.js'
+import * as ChatControl from '../controllers/chat.controller.js'
 
 const router = express.Router();
 
@@ -9,6 +10,8 @@ router.use(UserControl.useSession);
 
 
 router.get("/", UserControl.home)
+
+router.get("/chat", ChatControl.chatHome)
 
 router.get("/home", UserControl.userLogged)//ok
 
@@ -23,6 +26,5 @@ router.get('/logout', UserControl.logout)
 router.post('/register', UserControl.registerAuth)
 
 router.post( '/login', UserControl.loginAuth)
-
 
 export default router;

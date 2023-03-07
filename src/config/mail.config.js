@@ -1,8 +1,10 @@
 import { createTransport } from 'nodemailer'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const mail = {
-    user: 'coderhousealexis@gmail.com',
-    pass: 'lcjooprkiyswvnbb'
+    user: process.env.EMAIL_ADMIN,
+    pass: process.env.PASS_ADMIN
 }
 
 const transporter = createTransport({
@@ -39,5 +41,25 @@ export async function sendEmail(email, name){
 
 }
 
+export async function sendOrderMail(email){
+    try{
+        await transporter.sendMail({
+            from: "Muchas gracias por su compra",
+            to: user.username,
+            subject: 'Nuevo pedido',
+            html: `<head>
+            <link rel="stylesheet" href="./style.css">
+            </head>
+       
+            <div id="email___content">
+            <h2>Hola ${email}</h2>
+            <p>Felicidades!!</p>
+            <p>Haz realizado tu primera compra</p>
+            </div>`
+        })
+    }catch(error){
+        console.log('Algo salio mal', error)
+    }
+}
 
-export default { sendEmail }
+export default { sendEmail, sendOrderMail}
